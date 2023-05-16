@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Descrição do Produto</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			margin: 0;
+		}
+		.header {
+			background-color: #000;
+			color: #fff;
+			padding: 20px;
+		}
+		.header h1 {
+			margin: 0;
+			font-size: 24px;
+		}
+		.produto {
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.produto img {
+			width: 300px;
+			height: 300px;
+			margin-bottom: 20px;
+		}
+		.produto h3 {
+			margin: 10px 0;
+			font-size: 20px;
+			font-weight: bold;
+		}
+		.produto p {
+			margin: 5px 0;
+			font-size: 16px;
+		}
+		.btn-carrinho {
+			margin-top: 20px;
+			padding: 10px 20px;
+			background-color: #000;
+			color: #fff;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		.btn-carrinho:hover {
+			background-color: #333;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<h1>Descrição do Produto</h1>
+	</div>
+	<div class="produto">
+		<img src="produto4.png" alt="Produto">
+		<h3>Headset Gamer Sem Fio Logitech G435</h3>
+		<p>Preço: R$ 629,99</p>
+		<p>Descrição: A combinação do LIGHTSPEED sem fio e do Bluetooth proporciona a você a liberdade de se conectar sem fio ao PC, mobile e outros dispositivos. Os drivers de 40 mm oferecem som incrível enquanto os microfones com formação de feixe eliminam o ruído de fundo e do braço do microfone. Também tem a certificação CarbonNeutral e foi desenvolvido com mínimo de 22% de plástico reciclado.</p>
+		<button class="btn-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+	</div>
+
+	<script>
+		function adicionarAoCarrinho() {
+			// Lógica para adicionar o produto ao carrinho
+			// Aqui você pode implementar a lógica desejada, como enviar uma requisição ao servidor ou armazenar localmente no navegador.
+			alert("Produto adicionado ao carrinho!");
+			window.location.href = "pagina_carrinho.html"; // Redireciona para a página do carrinho de compras
+		}
+	</script>
+</body>
+</html>

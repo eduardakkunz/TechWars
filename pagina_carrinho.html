@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Carrinho de Compras</title>
+	<style>
+		/* Estilos CSS */
+		body {
+			text-align: center;
+			margin: 0;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			background-color: #f6f6f6;
+		}
+
+		header {
+			background-color: #000;
+			color: #fff;
+			padding: 20px 0;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: 24px;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 40px auto;
+			padding: 0 20px;
+		}
+
+		.produto {
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 20px;
+			margin-bottom: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.produto img {
+			max-height: 100px;
+		}
+
+		.produto .info {
+			margin-left: 20px;
+			flex-grow: 1;
+		}
+
+		.produto .info h3 {
+			margin: 0;
+			font-size: 18px;
+		}
+
+		.produto .info p {
+			margin: 5px 0;
+		}
+
+		.carrinho-vazio {
+			font-style: italic;
+			color: #888;
+		}
+
+		.total {
+			font-weight: bold;
+			margin-top: 20px;
+			font-size: 20px;
+		}
+
+		.finalizar-compra {
+			margin-top: 20px;
+			background-color: #000;
+			color: #fff;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.finalizar-compra:hover {
+			background-color: #333;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Carrinho de Compras</h1>
+	</header>
+	<div class="container">
+		<div id="carrinho"></div>
+		<p class="total">Total: R$ 0,00</p>
+		<button class="finalizar-compra" onclick="confirmarCompra()">Finalizar Compra</button>
+	</div>
+
+	<script>
+		const carrinhoElement = document.getElementById("carrinho");
+		const totalElement = document.querySelector(".total");
+		const listaProdutos = [];
+
+		// Função para adicionar um produto personalizado ao carrinho
+		function adicionarProduto() {
+			const nome = prompt("Digite o nome do produto:");
+			const preco = parseFloat(prompt("Digite o preço do produto:"));
+			const quantidade = parseInt(prompt("Digite a quantidade desejada:"));
+
+			if (nome && preco && quantidade) {
+				const produto = {
+					nome: nome,
+					preco: preco,
+					quantidade: quantidade
+				};
+
+				listaProdutos.push(produto);
+
+				// Atualiza o carrinho
+				atualizarCarrinho();
+			} else {
+				alert("Por favor, preencha todos os campos corretamente.");
+			}
+		}
+
+		// Função para atualizar o carrinho e calcular o total
+		function atualizarCarrinho() {
+			carrinhoElement.innerHTML = ""; // Limpa o carrinho antes de atualizar
+            if (listaProdutos.length === 0) {
+			const carrinhoVazioElement = document.createElement("p");
+			carrinhoVazioElement.classList.add("carrinho-vazio");
+			carrinhoVazioElement.textContent = "Seu carrinho está vazio.";
+			carrinhoElement.appendChild(carrinhoVazioElement);
+		} else {
+			let total = 0;
+
+			// Iterar sobre a lista de produtos e criar elementos HTML para cada produto
+			listaProdutos.forEach(produto => {
+				const produtoElement = document.createElement("div");
+				produtoElement.classList.add("produto");
+
+				const infoElement = document.createElement("div");
+				infoElement.classList.add("info");
+
+				const nomeElement = document.createElement("h3");
+				nomeElement.textContent = produto.nome;
+				infoElement.appendChild(nomeElement);
+
+				const precoElement = document.createElement("p");
+				precoElement.textContent = `Preço: R$ ${produto.preco.toFixed(2)}`;
+				infoElement.appendChild(precoElement);
+
+				const quantidadeElement = document.createElement("p");
+				quantidadeElement.textContent = `Quantidade: ${produto.quantidade}`;
+				infoElement.appendChild(quantidadeElement);
+
+				produtoElement.appendChild(infoElement);
+
+				carrinhoElement.appendChild(produtoElement);
+
+				// Calcula o valor total do produto
+				const valorProduto = produto.preco * produto.quantidade;
+				total += valorProduto;
+			});
+
+			// Exibe o valor total dos produtos no carrinho
+			totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
+		}
+	}
+
+	// Função para confirmar a compra
+	function confirmarCompra() {
+		alert("Finalizando a Compra");
+		// Redirecionar para a página de finalização da compra
+		window.location.href = "pagina-finalizar-compra.html";
+	}
+</script>
+<button onclick="adicionarProduto()">Adicionar Produto</button>
+</body>
+</html>

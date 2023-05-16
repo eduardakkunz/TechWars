@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tech Wars</title>
+	<style>
+		body {
+			background-color: #fff;
+			color: #000;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #000;
+			color: #fff;
+			padding: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		nav {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		nav li {
+			margin-right: 15px;
+			font-weight: bold;
+		}
+
+		nav a {
+			color: #fff;
+			text-decoration: none;
+			font-size: 14px;
+			padding: 10px;
+		}
+
+		nav a:hover {
+			text-decoration: underline;
+		}
+
+		#logo-container {
+			display: flex;
+			align-items: center;
+		}
+
+		#logo {
+			width: 100px;
+			margin-right: 10px;
+		}
+
+		#site-name {
+			text-align: center;
+			margin-bottom: 0;
+		}
+
+		#search-form {
+			display: flex;
+			align-items: center;
+			margin-left: 20px;
+		}
+
+		#search-input {
+			padding: 10px;
+			font-size: 14px;
+			border: 2px solid #000;
+			border-radius: 4px;
+			margin-right: 5px;
+		}
+
+		#search-button {
+			background-color: #000;
+			color: #fff;
+			border: none;
+			border-radius: 0 4px 4px 0;
+			padding: 10px 20px;
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		main {
+			padding: 20px;
+		}
+
+		.produtos-em-destaque {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			margin-top: 20px;
+		}
+
+		.produto {
+			border-radius: 10px;
+			background-color: #f2f2f2;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 20px;
+			text-align: center;
+		}
+
+		.foto-produto {
+			width: 150px;
+			height: 150px;
+			margin-bottom: 20px;
+		}
+
+		.texto-produto {
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.preco {
+			font-weight: bold;
+			color: #777;
+			margin-bottom: 5px;
+		}
+
+		.desconto {
+			color: #06c;
+			font-size: 14px;
+		}
+
+		footer {
+			background-color: #000;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+		}
+
+		.rodape {
+			font-size: 14px;
+			margin-bottom: 10px;
+		}
+
+		.telefone,
+		.email {
+			font-size: 12px;
+			margin-bottom: 5px;
+		
+		}
+
+@media (max-width: 768px) {
+	.produtos-em-destaque {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 480px) {
+	#logo {
+		width: 80px;
+	}
+
+	nav {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	nav li {
+		margin-bottom: 10px;
+	}
+
+	#search-input {
+		width: 150px;
+	}
+
+	#search-button {
+		padding: 10px;
+	}
+}
+</style>
+</head>
+<body>
+<header>
+<nav>
+	<li><a href="#">Inicial</a></li>
+	<li><a href="#">Sobre a Tech Wars</a></li>
+	<li><a href="#">Contato</a></li>
+</nav>
+<div id="logo-container">
+	<a href="index.html">
+		<img id="logo" src="logo3.png" alt="Logo Tech Wars">
+	</a>
+	<h1 id="site-name">Tech Wars</h1>
+</div>
+<form id="search-form" action="pagina_resultados.html" method="GET">
+	<input id="search-input" type="text" name="pesquisa" placeholder="Digite sua busca">
+	<input id="search-button" type="submit" value="Pesquisar">
+</form>
+</header>
+<main>
+<section class="produtos-em-destaque">
+	<div class="produto">
+		<a href="descrição_produto_codigo1.html">
+			<img src="produto1.png" class="foto-produto" alt="Produto 1">
+			<h3 class="texto-produto">Teclado Gamer Redragon Devasta</h3>
+			<p class="preco">R$ 299,99</p>
+			<p class="desconto">10% de desconto</p>
+		</a>
+	</div>
+	<div class="produto">
+		<a href="descrição_produto_codigo2.html">
+			<img src="produto2.png" class="foto-produto" alt="Produto 2">
+			<h3 class="texto-produto">Mouse Gamer Logitech G604 LIGHTSPEED</h3>
+			<p class="preco">R$ 449,99</p>
+			<p class="desconto">20% de desconto</p>
+		</a>
+	</div>
+	<div class="produto">
+		<a href="descrição_produto_codigo3.html">
+			<img src="produto3.png" class="foto-produto" alt="Produto 3">
+			<h3 class="texto-produto">Monitor Gamer LG UltraGear Nano IPS 27</h3>
+			<p class="preco">R$ 3.9999,99</p>
+			<p class="desconto">30% de desconto</p>
+		</a>
+	</div>
+	<div class="produto">
+		<a href="descrição_produto_codigo4.html">
+			<img src="produto4.png" class="foto-produto" alt="Produto 4">
+			<h3 class="texto-produto">Headset Gamer Sem Fio Logitech G435</h3>
+			<p class="preco">R$ 629,99</p>
+			<p class="desconto">15% de desconto</p>
+		</a>
+	</div>
+	<div class="produto">
+		<a href="descrição_produto_codigo5.html">
+			<img src="produto5.png" class="foto-produto" alt="Produto 5">
+			<h3 class="texto-produto">Notebook Gamer Lenovo Gaming 3i Intel Core i5</h3>
+			<p class="preco">R$ 3.699,99</p>
+			<p class="desconto">25% de desconto</p>
+		</a>
+	</div>
+	<div class="produto">
+		<a href="descrição_produto_codigo6.html">
+			<img src="produto6.png" class="foto-produto" alt="Produto 6">
+			<h3 class="texto-produto">Impressora Multifuncional Epson EcoTank L3250</h3>
+			<p class="preco">R$ 1.099,99</p>
+			<p class="desconto">10% de desconto</p>
+		</a>
+	</div>
+</section>
+</main>
+<footer>
+<p class="rodape">Tech Wars - Todos os direitos reservados</p>
+<p class="telefone">Telefone: (00) 1234-5678</p>
+<p class="email">Email: contato@techwars.com</p>
+</footer>
+</body>
+</html>
+ 
