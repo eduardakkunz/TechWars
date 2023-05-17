@@ -60,14 +60,22 @@
 		<img src="produto1.png" alt="Produto">
 		<h3>Teclado Gamer Redragon Devasta, Switch Blue, RGB LED, PT-BR</h3>
 		<p>Preço: R$ 299,99</p>
-		<p>Descrição: Possui Switch Blue, Design Ergonômico, 12 Teclas de Atalho Programáveis, Tela LCD, Preto e Múltiplas Personalizações de Core. </p>
-		<button class="btn-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+		<p>Descrição: Possui Switch Blue, Design Ergonômico, 12 Teclas de Atalho Programáveis, Tela LCD, Preto e Múltiplas Personalizações de Cor. </p>
+		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto1.png', 'Teclado Gamer Redragon Devasta, Switch Blue, RGB LED, PT-BR', '299.99')">Adicionar ao Carrinho</button>
 	</div>
 
 	<script>
-		function adicionarAoCarrinho() {
-			// Lógica para adicionar o produto ao carrinho
-			// Aqui você pode implementar a lógica desejada, como enviar uma requisição ao servidor ou armazenar localmente no navegador.
+		function adicionarAoCarrinho(imagem, nome, preco) {
+			var produto = {
+				imagem: imagem,
+				nome: nome,
+				preco: preco
+			};
+
+			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+			carrinho.push(produto);
+			localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
 			alert("Produto adicionado ao carrinho!");
 			window.location.href = "pagina_carrinho.html"; // Redireciona para a página do carrinho de compras
 		}
