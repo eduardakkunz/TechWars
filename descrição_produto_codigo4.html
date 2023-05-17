@@ -61,13 +61,21 @@
 		<h3>Headset Gamer Sem Fio Logitech G435</h3>
 		<p>Preço: R$ 629,99</p>
 		<p>Descrição: A combinação do LIGHTSPEED sem fio e do Bluetooth proporciona a você a liberdade de se conectar sem fio ao PC, mobile e outros dispositivos. Os drivers de 40 mm oferecem som incrível enquanto os microfones com formação de feixe eliminam o ruído de fundo e do braço do microfone. Também tem a certificação CarbonNeutral e foi desenvolvido com mínimo de 22% de plástico reciclado.</p>
-		<button class="btn-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto4.png', 'Headset Gamer Sem Fio Logitech G435', 629.99)">Adicionar ao Carrinho</button>
 	</div>
 
 	<script>
-		function adicionarAoCarrinho() {
-			// Lógica para adicionar o produto ao carrinho
-			// Aqui você pode implementar a lógica desejada, como enviar uma requisição ao servidor ou armazenar localmente no navegador.
+		function adicionarAoCarrinho(imagem, nome, preco) {
+			var produto = {
+				imagem: imagem,
+				nome: nome,
+				preco: preco
+			};
+
+			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+			carrinho.push(produto);
+			localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
 			alert("Produto adicionado ao carrinho!");
 			window.location.href = "pagina_carrinho.html"; // Redireciona para a página do carrinho de compras
 		}
