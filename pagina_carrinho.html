@@ -3,176 +3,166 @@
 <head>
 	<title>Carrinho de Compras</title>
 	<style>
-		/* Estilos CSS */
 		body {
+			font-family: Arial, sans-serif;
 			text-align: center;
 			margin: 0;
-			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-			background-color: #f6f6f6;
 		}
-
-		header {
+		.header {
 			background-color: #000;
 			color: #fff;
-			padding: 20px 0;
+			padding: 20px;
 		}
-
-		h1 {
+		.header h1 {
 			margin: 0;
 			font-size: 24px;
 		}
-
-		.container {
-			max-width: 800px;
-			margin: 40px auto;
-			padding: 0 20px;
+		.produtos {
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
-
 		.produto {
-			background-color: #fff;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10px;
+			padding: 10px;
 			border: 1px solid #ccc;
 			border-radius: 5px;
-			padding: 20px;
-			margin-bottom: 20px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
 		}
-
 		.produto img {
-			max-height: 100px;
+			width: 100px;
+			height: 100px;
+			margin-right: 10px;
 		}
-
-		.produto .info {
-			margin-left: 20px;
-			flex-grow: 1;
-		}
-
-		.produto .info h3 {
+		.produto h3 {
 			margin: 0;
 			font-size: 18px;
 		}
-
-		.produto .info p {
+		.produto p {
 			margin: 5px 0;
+			font-size: 16px;
 		}
-
-		.carrinho-vazio {
-			font-style: italic;
-			color: #888;
+		.produto input {
+			width: 50px;
 		}
-
 		.total {
-			font-weight: bold;
 			margin-top: 20px;
 			font-size: 20px;
 		}
-
-		.finalizar-compra {
+		.btn-finalizar {
 			margin-top: 20px;
+			padding: 10px 20px;
 			background-color: #000;
 			color: #fff;
-			padding: 10px 20px;
-			border-radius: 5px;
-			border: none;
 			font-size: 16px;
+			border: none;
+			border-radius: 5px;
 			cursor: pointer;
 		}
-
-		.finalizar-compra:hover {
+		.btn-finalizar:hover {
 			background-color: #333;
 		}
 	</style>
 </head>
 <body>
-	<header>
+	<div class="header">
 		<h1>Carrinho de Compras</h1>
-	</header>
-	<div class="container">
-		<div id="carrinho"></div>
-		<p class="total">Total: R$ 0,00</p>
-		<button class="finalizar-compra" onclick="confirmarCompra()">Finalizar Compra</button>
 	</div>
 
+	<div class="produtos">
+		<!-- Os produtos serão adicionados dinamicamente aqui -->
+	</div>
+
+	<div class="total">
+		<!-- O total será calculado e exibido aqui -->
+	</div>
+
+	<button class="btn-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+
 	<script>
-		const carrinhoElement = document.getElementById("carrinho");
-		const totalElement = document.querySelector(".total");
-		const listaProdutos = [];
-
-		// Função para adicionar um produto personalizado ao carrinho
-		function adicionarProduto() {
-			const nome = prompt("Digite o nome do produto:");
-			const preco = parseFloat(prompt("Digite o preço do produto:"));
-			const quantidade = parseInt(prompt("Digite a quantidade desejada:"));
-
-			if (nome && preco && quantidade) {
-				const produto = {
-					nome: nome,
-					preco: preco,
-					quantidade: quantidade
-				};
-
-				listaProdutos.push(produto);
-
-				// Atualiza o carrinho
-				atualizarCarrinho();
+		// Função para exibir os produtos no carrinho
+		function exibirProdutosNoCarrinho() {
+			var carrinho = localStorage.getItem('carrinho');
+			if (carrinho) {
+				carrinho = JSON.parse(carrinho);
 			} else {
-				alert("Por favor, preencha todos os campos corretamente.");
+				carrinho = [];
 			}
+
+			var produtosContainer = document.querySelector('.produtos');
+			produtosContainer.innerHTML = '';
+
+			carrinho.forEach(function(produto) {
+				var produtoHTML = `
+					<div class="produto">
+						<img src="${produto.imagem}" alt="Produto">
+						<div>
+							<h3>${produto.nome}</h3>
+							<p>Preço: R$ ${produto.preco.toFixed(2)}</p>
+							<p>Quantidade: <input type="number" value="${produto.quantidade}" min="1" onchange="atualizarQuantidade(event, '${produto.nome}')"></p>
+						</div>
+					</div>
+				`;
+
+				produtosContainer.innerHTML += produtoHTML;
+			});
 		}
 
-		// Função para atualizar o carrinho e calcular o total
-		function atualizarCarrinho() {
-			carrinhoElement.innerHTML = ""; // Limpa o carrinho antes de atualizar
-            if (listaProdutos.length === 0) {
-			const carrinhoVazioElement = document.createElement("p");
-			carrinhoVazioElement.classList.add("carrinho-vazio");
-			carrinhoVazioElement.textContent = "Seu carrinho está vazio.";
-			carrinhoElement.appendChild(carrinhoVazioElement);
-		} else {
-			let total = 0;
+		// Função para atualizar a quantidade do produto
+		function atualizarQuantidade(event, nomeProduto) {
+			var novaQuantidade = parseInt(event.target.value);
 
-			// Iterar sobre a lista de produtos e criar elementos HTML para cada produto
-			listaProdutos.forEach(produto => {
-				const produtoElement = document.createElement("div");
-				produtoElement.classList.add("produto");
+			var carrinho = localStorage.getItem('carrinho');
+			if (carrinho) {
+				carrinho = JSON.parse(carrinho);
+			} else {
+				carrinho = [];
+			}
 
-				const infoElement = document.createElement("div");
-				infoElement.classList.add("info");
-
-				const nomeElement = document.createElement("h3");
-				nomeElement.textContent = produto.nome;
-				infoElement.appendChild(nomeElement);
-
-				const precoElement = document.createElement("p");
-				precoElement.textContent = `Preço: R$ ${produto.preco.toFixed(2)}`;
-				infoElement.appendChild(precoElement);
-
-				const quantidadeElement = document.createElement("p");
-				quantidadeElement.textContent = `Quantidade: ${produto.quantidade}`;
-				infoElement.appendChild(quantidadeElement);
-
-				produtoElement.appendChild(infoElement);
-
-				carrinhoElement.appendChild(produtoElement);
-
-				// Calcula o valor total do produto
-				const valorProduto = produto.preco * produto.quantidade;
-				total += valorProduto;
+			carrinho.forEach(function(produto) {
+				if (produto.nome === nomeProduto) {
+					produto.quantidade = novaQuantidade;
+				}
 			});
 
-			// Exibe o valor total dos produtos no carrinho
-			totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
+			localStorage.setItem('carrinho', JSON.stringify(carrinho));
+			calcularTotal();
 		}
-	}
 
-	// Função para confirmar a compra
-	function confirmarCompra() {
-		alert("Finalizando a Compra");
-		// Redirecionar para a página de finalização da compra
-		window.location.href = "pagina-finalizar-compra.html";
-	}
-</script>
-<button onclick="adicionarProduto()">Adicionar Produto</button>
+		// Função para calcular o total
+		function calcularTotal() {
+			var carrinho = localStorage.getItem('carrinho');
+			if (carrinho) {
+				carrinho = JSON.parse(carrinho);
+			} else {
+				carrinho = [];
+			}
+
+			var total = 0;
+
+			carrinho.forEach(function(produto) {
+				total += produto.preco * produto.quantidade;
+			});
+
+			var totalContainer = document.querySelector('.total');
+			totalContainer.innerText = 'Total: R$ ' + total.toFixed(2);
+		}
+
+		// Função para finalizar a compra
+		function finalizarCompra() {
+			// Aqui você pode adicionar a lógica para finalizar a compra, como redirecionar para a página de pagamento, enviar os dados para um servidor, etc.
+			alert('Compra finalizada!');
+			window.location.href = 'pagina-finalizar-compra.html';
+		}
+
+		// Chamando as funções ao carregar a página
+		document.addEventListener("DOMContentLoaded", function() {
+			exibirProdutosNoCarrinho();
+			calcularTotal();
+		});
+	</script>
 </body>
 </html>
