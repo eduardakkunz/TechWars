@@ -60,14 +60,22 @@
 		<img src="produto2.png" alt="Produto">
 		<h3>Mouse Gamer Logitech G604 LIGHTSPEED</h3>
 		<p>Preço: R$ 449,99</p>
-		<p>Descrição: O Mouse Gamer Logitech G604 LIGHTSPEED possui, 12000 DPI, 15 Botões, Preto: com 15 Botões, Sensor HERO 25K, LIGHTSYNC RGB, Conectividade Bluetooth e LIGHTSPEED 2.4GHz.</p>
-		<button class="btn-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+		<p>Descrição: O Mouse Gamer Logitech G604 LIGHTSPEED possui 12000 DPI, 15 Botões, Preto, Sensor HERO 25K, LIGHTSYNC RGB, Conectividade Bluetooth e LIGHTSPEED 2.4GHz.</p>
+		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto2.png', 'Mouse Gamer Logitech G604 LIGHTSPEED', '449.99')">Adicionar ao Carrinho</button>
 	</div>
 
 	<script>
-		function adicionarAoCarrinho() {
-			// Lógica para adicionar o produto ao carrinho
-			// Aqui você pode implementar a lógica desejada, como enviar uma requisição ao servidor ou armazenar localmente no navegador.
+		function adicionarAoCarrinho(imagem, nome, preco) {
+			var produto = {
+				imagem: imagem,
+				nome: nome,
+				preco: preco
+			};
+
+			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+			carrinho.push(produto);
+			localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
 			alert("Produto adicionado ao carrinho!");
 			window.location.href = "pagina_carrinho.html"; // Redireciona para a página do carrinho de compras
 		}
