@@ -60,14 +60,22 @@
 		<img src="produto5.png" alt="Produto">
 		<h3>Notebook Gamer Lenovo Gaming 3i Intel Core i5-11300H, GeForce GTX 1650, 8GB RAM, SSD 512GB, 15.6 Full HD, Windows 11, Preto - 82MG0009BR</h3>
 		<p>Preço: R$ 3.699,99</p>
-		<p>Descrição:Novo design com 11ª Geração de Processadores Intel Core i5-11300H e placa de vídeo NVIDIA GeForce GTX 1650 4GB. Ideal para gamers e usuários que também precisam de alta performance. Com tela de 15.6'' Full HD WVA Antirreflexo para melhor definição de imagem e cores. O armanezamento SSD PCIe NVMe é 10x mais rápido* que um HDD 2.5” SATA, você terá mais segurança ao armazenar seus dados. O teclado retroiluminado em LED branco, deixa o computador mais atraente e também favorece a performance para jogos em lugares com pouca iluminação. </p>
-		<button class="btn-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+		<p>Descrição: Novo design com 11ª Geração de Processadores Intel Core i5-11300H e placa de vídeo NVIDIA GeForce GTX 1650 4GB. Ideal para gamers e usuários que também precisam de alta performance. Com tela de 15.6'' Full HD WVA Antirreflexo para melhor definição de imagem e cores. O armazenamento SSD PCIe NVMe é 10x mais rápido* do que um HDD 2.5” SATA, proporcionando mais segurança ao armazenar seus dados. O teclado retroiluminado em LED branco deixa o computador mais atraente e também favorece o desempenho para jogos em locais com pouca iluminação.</p>
+		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto5.png', 'Notebook Gamer Lenovo Gaming 3i Intel Core i5-11300H', 3699.99)">Adicionar ao Carrinho</button>
 	</div>
 
 	<script>
-		function adicionarAoCarrinho() {
-			// Lógica para adicionar o produto ao carrinho
-			// Aqui você pode implementar a lógica desejada, como enviar uma requisição ao servidor ou armazenar localmente no navegador.
+		function adicionarAoCarrinho(imagem, nome, preco) {
+			var produto = {
+				imagem: imagem,
+				nome: nome,
+				preco: preco
+			};
+
+			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+			carrinho.push(produto);
+			localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
 			alert("Produto adicionado ao carrinho!");
 			window.location.href = "pagina_carrinho.html"; // Redireciona para a página do carrinho de compras
 		}
