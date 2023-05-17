@@ -60,14 +60,22 @@
 		<img src="produto6.png" alt="Produto">
 		<h3>Impressora Multifuncional Epson EcoTank L3250, Colorida, Wifi, Wireless, USB, Bivolt, Preta - C11CJ67303</h3>
 		<p>Preço: R$ 1.099,99</p>
-		<p>Descrição: Impressora Multifuncional Epson EcoTank L3250 A Epson EcoTank L3250 é uma multifuncional tanque de tinta 3 em 1 com conexão wireless destinada à famílias, estudantes, e profissionais. Oferece baixo custo de impressão graças ao sistema de EcoTank, que imprime até 4.500 páginas em preto e 7.500 páginas coloridas¹ com cada kit de garrafas de reposição original. </p>
-		<button class="btn-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+		<p>Descrição: Impressora Multifuncional Epson EcoTank L3250. A Epson EcoTank L3250 é uma multifuncional tanque de tinta 3 em 1 com conexão wireless destinada a famílias, estudantes e profissionais. Oferece baixo custo de impressão graças ao sistema de EcoTank, que imprime até 4.500 páginas em preto e 7.500 páginas coloridas¹ com cada kit de garrafas de reposição original.</p>
+		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto6.png', 'Impressora Multifuncional Epson EcoTank L3250', 1099.99)">Adicionar ao Carrinho</button>
 	</div>
 
 	<script>
-		function adicionarAoCarrinho() {
-			// Lógica para adicionar o produto ao carrinho
-			// Aqui você pode implementar a lógica desejada, como enviar uma requisição ao servidor ou armazenar localmente no navegador.
+		function adicionarAoCarrinho(imagem, nome, preco) {
+			var produto = {
+				imagem: imagem,
+				nome: nome,
+				preco: preco
+			};
+
+			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+			carrinho.push(produto);
+			localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
 			alert("Produto adicionado ao carrinho!");
 			window.location.href = "pagina_carrinho.html"; // Redireciona para a página do carrinho de compras
 		}
