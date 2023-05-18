@@ -10,16 +10,19 @@
 			text-align: center;
 			margin: 0;
 		}
+
 		header {
 			background-color: #141414;
 			color: #fff;
 			padding: 10px;
 		}
+
 		h1 {
 			margin: 0;
 			font-size: 24px;
 			font-weight: bold;
 		}
+
 		.container {
 			max-width: 800px;
 			margin: 40px auto;
@@ -28,17 +31,20 @@
 			border-radius: 5px;
 			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 		}
+
 		form {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			margin-top: 20px;
 		}
+
 		label {
 			margin-top: 10px;
 			font-weight: bold;
 			font-size: 14px;
 		}
+
 		input, select {
 			width: 100%;
 			padding: 10px;
@@ -46,6 +52,7 @@
 			border-radius: 3px;
 			font-size: 14px;
 		}
+
 		button {
 			margin-top: 20px;
 			padding: 10px 20px;
@@ -57,9 +64,11 @@
 			cursor: pointer;
 			transition: background-color 0.3s ease;
 		}
-		button:hover {
-			background-color: #000;
-		}
+
+			button:hover {
+				background-color: #000;
+			}
+
 		.modal {
 			position: fixed;
 			top: 0;
@@ -72,20 +81,24 @@
 			justify-content: center;
 			z-index: 9999;
 		}
+
 		.modal-content {
 			background-color: #fff;
 			padding: 20px;
 			border-radius: 5px;
 		}
+
 		.modal-message {
 			margin-bottom: 10px;
 			font-size: 16px;
 			font-weight: bold;
 		}
+
 		.modal p {
 			margin-bottom: 10px;
 			font-size: 14px;
 		}
+
 		.modal button {
 			padding: 10px 20px;
 			border-radius: 3px;
@@ -95,9 +108,11 @@
 			cursor: pointer;
 			transition: background-color 0.3s ease;
 		}
-		.modal button:hover {
-			background-color: #000;
-		}
+
+			.modal button:hover {
+				background-color: #000;
+			}
+
 		.gif {
 			margin-top: 20px;
 			max-width: 100%;
@@ -159,7 +174,7 @@
 		}
 
 		// Evento de envio do formulário
-		document.getElementById("compraForm").addEventListener("submit", function(event) {
+		document.getElementById("compraForm").addEventListener("submit", function (event) {
 			event.preventDefault(); // Impede o envio do formulário
 			abrirModal(); // Abre o modal de confirmação
 		});

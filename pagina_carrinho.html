@@ -8,21 +8,25 @@
 			text-align: center;
 			margin: 0;
 		}
+
 		.header {
 			background-color: #000;
 			color: #fff;
 			padding: 20px;
 		}
-		.header h1 {
-			margin: 0;
-			font-size: 24px;
-		}
-		.produtos {
+
+			.header h1 {
+				margin: 0;
+				font-size: 24px;
+			}
+
+		.carrinho {
 			margin-top: 50px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 		}
+
 		.produto {
 			display: flex;
 			justify-content: space-between;
@@ -31,27 +35,38 @@
 			padding: 10px;
 			border: 1px solid #ccc;
 			border-radius: 5px;
+			text-align: center; /* Centraliza o texto */
 		}
-		.produto img {
-			width: 100px;
-			height: 100px;
-			margin-right: 10px;
-		}
-		.produto h3 {
-			margin: 0;
-			font-size: 18px;
-		}
-		.produto p {
-			margin: 5px 0;
-			font-size: 16px;
-		}
-		.produto input {
-			width: 50px;
-		}
+
+			.produto img {
+				width: 100px;
+				height: 100px;
+				margin-right: 10px;
+			}
+
+			.produto .detalhes {
+				text-align: center; /* Centraliza o texto */
+			}
+
+			.produto h3 {
+				margin: 0;
+				font-size: 18px;
+			}
+
+			.produto p {
+				margin: 5px 0;
+				font-size: 16px;
+			}
+
+			.produto input {
+				width: 50px;
+			}
+
 		.total {
 			margin-top: 20px;
 			font-size: 20px;
 		}
+
 		.btn-finalizar {
 			margin-top: 20px;
 			padding: 10px 20px;
@@ -62,107 +77,88 @@
 			border-radius: 5px;
 			cursor: pointer;
 		}
-		.btn-finalizar:hover {
-			background-color: #333;
-		}
+
+			.btn-finalizar:hover {
+				background-color: #333;
+			}
 	</style>
 </head>
 <body>
 	<div class="header">
 		<h1>Carrinho de Compras</h1>
 	</div>
-
-	<div class="produtos">
-		<!-- Os produtos serão adicionados dinamicamente aqui -->
+	<div class="carrinho">
+		<h2>Seu carrinho:</h2>
+		<div id="lista-produtos"></div>
+		<div class="total" id="total"></div>
+		<button class="btn-finalizar">Finalizar Compra</button>
 	</div>
-
-	<div class="total">
-		<!-- O total será calculado e exibido aqui -->
-	</div>
-
-	<button class="btn-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
 
 	<script>
-		// Função para exibir os produtos no carrinho
 		function exibirProdutosNoCarrinho() {
-			var carrinho = localStorage.getItem('carrinho');
-			if (carrinho) {
-				carrinho = JSON.parse(carrinho);
-			} else {
-				carrinho = [];
-			}
-
-			var produtosContainer = document.querySelector('.produtos');
-			produtosContainer.innerHTML = '';
-
-			carrinho.forEach(function(produto) {
-				var produtoHTML = `
-					<div class="produto">
-						<img src="${produto.imagem}" alt="Produto">
-						<div>
-							<h3>${produto.nome}</h3>
-							<p>Preço: R$ ${produto.preco.toFixed(2)}</p>
-							<p>Quantidade: <input type="number" value="${produto.quantidade}" min="1" onchange="atualizarQuantidade(event, '${produto.nome}')"></p>
-						</div>
-					</div>
-				`;
-
-				produtosContainer.innerHTML += produtoHTML;
-			});
-		}
-
-		// Função para atualizar a quantidade do produto
-		function atualizarQuantidade(event, nomeProduto) {
-			var novaQuantidade = parseInt(event.target.value);
-
-			var carrinho = localStorage.getItem('carrinho');
-			if (carrinho) {
-				carrinho = JSON.parse(carrinho);
-			} else {
-				carrinho = [];
-			}
-
-			carrinho.forEach(function(produto) {
-				if (produto.nome === nomeProduto) {
-					produto.quantidade = novaQuantidade;
-				}
-			});
-
-			localStorage.setItem('carrinho', JSON.stringify(carrinho));
-			calcularTotal();
-		}
-
-		// Função para calcular o total
-		function calcularTotal() {
-			var carrinho = localStorage.getItem('carrinho');
-			if (carrinho) {
-				carrinho = JSON.parse(carrinho);
-			} else {
-				carrinho = [];
-			}
-
+			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+			var listaProdutos = document.getElementById('lista-produtos');
+			var totalElement = document.getElementById('total');
 			var total = 0;
 
-			carrinho.forEach(function(produto) {
-				total += produto.preco * produto.quantidade;
-			});
+			listaProdutos.innerHTML = ''; // Limpa a lista de produtos
 
-			var totalContainer = document.querySelector('.total');
-			totalContainer.innerText = 'Total: R$ ' + total.toFixed(2);
+			for (var i = 0; i < carrinho.length; i++) {
+				var produto = carrinho[i];
+				var produtoElement = document.createElement('div');
+				produtoElement.className = 'produto';
+
+				var imagemElement = document.createElement('img');
+				imagemElement.src = produto.imagem;
+
+				var detalhesElement = document.createElement('div');
+				detalhesElement.className = 'detalhes';
+
+				var nomeElement = document.createElement('h3');
+				nomeElement.innerText = produto.nome;
+
+				var precoElement = document.createElement('div');
+				precoElement.className = 'preco';
+				precoElement.innerText = 'Preço: R$ ' + produto.preco;
+
+				var quantidadeElement = document.createElement('input');
+				quantidadeElement.type = 'number';
+				quantidadeElement.value = 1; // Quantidade padrão
+				quantidadeElement.min = 1; // Quantidade mínima
+				quantidadeElement.addEventListener('change', atualizarTotal); // Atualiza o total quando a quantidade é alterada
+
+				detalhesElement.appendChild(nomeElement);
+				detalhesElement.appendChild(precoElement);
+				detalhesElement.appendChild(quantidadeElement);
+
+				produtoElement.appendChild(imagemElement);
+				produtoElement.appendChild(detalhesElement);
+
+				listaProdutos.appendChild(produtoElement);
+
+				total += parseFloat(produto.preco); // Calcula o total dos produtos
+			}
+
+			totalElement.innerText = 'Total: R$ ' + total.toFixed(2); // Exibe o total formatado com duas casas decimais
 		}
 
-		// Função para finalizar a compra
-		function finalizarCompra() {
-			// Aqui você pode adicionar a lógica para finalizar a compra, como redirecionar para a página de pagamento, enviar os dados para um servidor, etc.
-			alert('Compra finalizada!');
-			window.location.href = 'pagina-finalizar-compra.html';
+		function atualizarTotal() {
+			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+			var totalElement = document.getElementById('total');
+			var total = 0;
+
+			for (var i = 0; i < carrinho.length; i++) {
+				var produto = carrinho[i];
+				var quantidadeElement = document.querySelectorAll('.produto input')[i];
+				var quantidade = parseFloat(quantidadeElement.value);
+
+				total += parseFloat(produto.preco) * quantidade; // Calcula o total dos produtos com base na quantidade selecionada
+			}
+
+			totalElement.innerText = 'Total: R$ ' + total.toFixed(2); // Exibe o total formatado com duas casas decimais
 		}
 
-		// Chamando as funções ao carregar a página
-		document.addEventListener("DOMContentLoaded", function() {
-			exibirProdutosNoCarrinho();
-			calcularTotal();
-		});
+		exibirProdutosNoCarrinho(); // Chama a função ao carregar a página para exibir os produtos no carrinho
 	</script>
 </body>
 </html>
