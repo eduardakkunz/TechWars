@@ -8,35 +8,55 @@
 			text-align: center;
 			margin: 0;
 		}
+
 		.header {
 			background-color: #000;
 			color: #fff;
 			padding: 20px;
 		}
-		.header h1 {
-			margin: 0;
-			font-size: 24px;
-		}
+
+			.header h1 {
+				margin: 0;
+				font-size: 24px;
+			}
+
 		.produto {
 			margin-top: 50px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 		}
-		.produto img {
+
+		.imagem-destaque {
 			width: 300px;
 			height: 300px;
 			margin-bottom: 20px;
+			cursor: pointer;
+			transition: transform 0.5s;
 		}
-		.produto h3 {
-			margin: 10px 0;
-			font-size: 20px;
-			font-weight: bold;
+
+			.imagem-destaque:hover {
+				transform: scale(1.2);
+			}
+
+		.imagem-pequena {
+			width: 80px;
+			height: 80px;
+			margin-bottom: 10px;
+			cursor: pointer;
 		}
-		.produto p {
-			margin: 5px 0;
-			font-size: 16px;
+
+		.imagem-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 20px;
 		}
+
+			.imagem-container .imagem-pequena {
+				margin-right: 10px;
+			}
+
 		.btn-carrinho {
 			margin-top: 20px;
 			padding: 10px 20px;
@@ -47,9 +67,10 @@
 			border-radius: 5px;
 			cursor: pointer;
 		}
-		.btn-carrinho:hover {
-			background-color: #333;
-		}
+
+			.btn-carrinho:hover {
+				background-color: #333;
+			}
 	</style>
 </head>
 <body>
@@ -57,19 +78,34 @@
 		<h1>Descrição do Produto</h1>
 	</div>
 	<div class="produto">
-		<img src="produto1.png" alt="Produto">
-		<h3>Teclado Gamer Redragon Devasta, Switch Blue, RGB LED, PT-BR</h3>
-		<p>Preço: R$ 299,99</p>
-		<p>Descrição: Possui Switch Blue, Design Ergonômico, 12 Teclas de Atalho Programáveis, Tela LCD, Preto e Múltiplas Personalizações de Cor. </p>
+		<div class="imagem-container">
+			<img class="imagem-destaque" src="produto1.png" alt="Produto 1" onclick="zoomImage(this)">
+		</div>
+		<div>
+			<img class="imagem-pequena" src="produto1.png" alt="Produto 2" onclick="zoomImage(this)">
+			<img class="imagem-pequena" src="produto1-2.png" alt="Produto 3" onclick="zoomImage(this)">
+			<img class="imagem-pequena" src="produto1-3.png" alt="Produto 4" onclick="zoomImage(this)">
+		</div>
+		<h3>Teclado Gamer Redragon Lakshmi, Switch Brown, Layout 60%, ABNT2 , Preto - K606-OG&GY&BK (PT-BROWN)</h3>
+		<p>Descrição: O Redragon Lakshmi vem no layout compacto 60% ABNT2. Contando com um cabo removível USB-C, o Lakshmi é um modelo muito portátil para aqueles usuários que buscam praticidade na hora levar seus equipamentos. Sem deixar de lado a qualidade na sua construção, as keycaps do Lakshmi são feitas com o método de double shot injection para a longevidade das marcações.</p>
 		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto1.png', 'Teclado Gamer Redragon Devasta, Switch Blue, RGB LED, PT-BR', '299.99')">Adicionar ao Carrinho</button>
 	</div>
 
 	<script>
+		function zoomImage(element) {
+			var imagemDestaque = document.querySelector('.imagem-destaque');
+			var imagemDestaqueSrc = imagemDestaque.getAttribute('src');
+
+			imagemDestaque.setAttribute('src', element.getAttribute('src'));
+			element.setAttribute('src', imagemDestaqueSrc);
+		}
+
 		function adicionarAoCarrinho(imagem, nome, preco) {
 			var produto = {
 				imagem: imagem,
 				nome: nome,
-				preco: preco
+				preco: preco,
+				quantidade: 1 // Adiciona a propriedade quantidade e a inicializa com 1
 			};
 
 			var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];

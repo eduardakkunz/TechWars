@@ -8,35 +8,44 @@
 			text-align: center;
 			margin: 0;
 		}
+
 		.header {
 			background-color: #000;
 			color: #fff;
 			padding: 20px;
 		}
-		.header h1 {
-			margin: 0;
-			font-size: 24px;
-		}
+
+			.header h1 {
+				margin: 0;
+				font-size: 24px;
+			}
+
 		.produto {
 			margin-top: 50px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 		}
-		.produto img {
-			width: 300px;
-			height: 300px;
-			margin-bottom: 20px;
-		}
-		.produto h3 {
-			margin: 10px 0;
-			font-size: 20px;
-			font-weight: bold;
-		}
-		.produto p {
-			margin: 5px 0;
-			font-size: 16px;
-		}
+
+			.produto .imagem-destaque {
+				width: 300px;
+				height: 300px;
+				margin-bottom: 20px;
+				cursor: pointer;
+				transition: transform 0.5s;
+			}
+
+				.produto .imagem-destaque:hover {
+					transform: scale(1.2);
+				}
+
+			.produto .imagem-pequena {
+				width: 100px;
+				height: 100px;
+				margin-bottom: 10px;
+				cursor: pointer;
+			}
+
 		.btn-carrinho {
 			margin-top: 20px;
 			padding: 10px 20px;
@@ -47,9 +56,10 @@
 			border-radius: 5px;
 			cursor: pointer;
 		}
-		.btn-carrinho:hover {
-			background-color: #333;
-		}
+
+			.btn-carrinho:hover {
+				background-color: #333;
+			}
 	</style>
 </head>
 <body>
@@ -57,7 +67,12 @@
 		<h1>Descrição do Produto</h1>
 	</div>
 	<div class="produto">
-		<img src="produto5.png" alt="Produto">
+		<img class="imagem-destaque" src="produto5.png" alt="Produto 1" onclick="zoomImage(this)">
+		<div>
+			<img class="imagem-pequena" src="produto5.png" alt="Produto 2" onclick="changeImage(this)">
+			<img class="imagem-pequena" src="produto5-2.png" alt="Produto 3" onclick="changeImage(this)">
+			<img class="imagem-pequena" src="PRODUTO5-3.png" alt="Produto 4" onclick="changeImage(this)">
+		</div>
 		<h3>Notebook Gamer Lenovo Gaming 3i Intel Core i5-11300H, GeForce GTX 1650, 8GB RAM, SSD 512GB, 15.6 Full HD, Windows 11, Preto - 82MG0009BR</h3>
 		<p>Preço: R$ 3.699,99</p>
 		<p>Descrição: Novo design com 11ª Geração de Processadores Intel Core i5-11300H e placa de vídeo NVIDIA GeForce GTX 1650 4GB. Ideal para gamers e usuários que também precisam de alta performance. Com tela de 15.6'' Full HD WVA Antirreflexo para melhor definição de imagem e cores. O armazenamento SSD PCIe NVMe é 10x mais rápido* do que um HDD 2.5” SATA, proporcionando mais segurança ao armazenar seus dados. O teclado retroiluminado em LED branco deixa o computador mais atraente e também favorece o desempenho para jogos em locais com pouca iluminação.</p>
@@ -65,6 +80,19 @@
 	</div>
 
 	<script>
+		function zoomImage(element) {
+			var imagemDestaque = document.querySelector('.imagem-destaque');
+			var imagemDestaqueSrc = imagemDestaque.getAttribute('src');
+
+			imagemDestaque.setAttribute('src', element.getAttribute('src'));
+			element.setAttribute('src', imagemDestaqueSrc);
+		}
+
+		function changeImage(element) {
+			var imagemDestaque = document.querySelector('.imagem-destaque');
+			imagemDestaque.src = element.src;
+		}
+
 		function adicionarAoCarrinho(imagem, nome, preco) {
 			var produto = {
 				imagem: imagem,

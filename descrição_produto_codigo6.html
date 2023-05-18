@@ -8,35 +8,55 @@
 			text-align: center;
 			margin: 0;
 		}
+
 		.header {
 			background-color: #000;
 			color: #fff;
 			padding: 20px;
 		}
-		.header h1 {
-			margin: 0;
-			font-size: 24px;
-		}
+
+			.header h1 {
+				margin: 0;
+				font-size: 24px;
+			}
+
 		.produto {
 			margin-top: 50px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 		}
-		.produto img {
-			width: 300px;
-			height: 300px;
-			margin-bottom: 20px;
-		}
-		.produto h3 {
-			margin: 10px 0;
-			font-size: 20px;
-			font-weight: bold;
-		}
-		.produto p {
-			margin: 5px 0;
-			font-size: 16px;
-		}
+
+			.produto img {
+				width: 300px;
+				height: 300px;
+				margin-bottom: 20px;
+				cursor: pointer;
+				transition: transform 0.5s;
+			}
+
+				.produto img:hover {
+					transform: scale(1.2);
+				}
+
+			.produto .imagem-pequena {
+				width: 100px;
+				height: 100px;
+				margin-bottom: 10px;
+				cursor: pointer;
+			}
+
+			.produto h3 {
+				margin: 10px 0;
+				font-size: 20px;
+				font-weight: bold;
+			}
+
+			.produto p {
+				margin: 5px 0;
+				font-size: 16px;
+			}
+
 		.btn-carrinho {
 			margin-top: 20px;
 			padding: 10px 20px;
@@ -47,9 +67,10 @@
 			border-radius: 5px;
 			cursor: pointer;
 		}
-		.btn-carrinho:hover {
-			background-color: #333;
-		}
+
+			.btn-carrinho:hover {
+				background-color: #333;
+			}
 	</style>
 </head>
 <body>
@@ -57,14 +78,32 @@
 		<h1>Descrição do Produto</h1>
 	</div>
 	<div class="produto">
-		<img src="produto6.png" alt="Produto">
+		<img class="imagem-destaque" src="produto6.png" alt="Produto" onclick="zoomImage(this)">
+		<div>
+			<img class="imagem-pequena" src="produto6.png" alt="Produto 6" onclick="changeImage(this)">
+			<img class="imagem-pequena" src="produto6-2.png" alt="Produto 7" onclick="changeImage(this)">
+			<img class="imagem-pequena" src="produto6-3.png" alt="Produto 8" onclick="changeImage(this)">
+		</div>
 		<h3>Impressora Multifuncional Epson EcoTank L3250, Colorida, Wifi, Wireless, USB, Bivolt, Preta - C11CJ67303</h3>
 		<p>Preço: R$ 1.099,99</p>
-		<p>Descrição: Impressora Multifuncional Epson EcoTank L3250. A Epson EcoTank L3250 é uma multifuncional tanque de tinta 3 em 1 com conexão wireless destinada a famílias, estudantes e profissionais. Oferece baixo custo de impressão graças ao sistema de EcoTank, que imprime até 4.500 páginas em preto e 7.500 páginas coloridas¹ com cada kit de garrafas de reposição original.</p>
-		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto6.png', 'Impressora Multifuncional Epson EcoTank L3250', 1099.99)">Adicionar ao Carrinho</button>
+		<p>Descrição: A Epson EcoTank L3250 é uma multifuncional tanque de tinta 3 em 1 com conexão wireless destinada a famílias, estudantes e profissionais. Oferece baixo custo de impressão graças ao sistema de EcoTank, que imprime até 4.500 páginas em preto e 7.500 páginas coloridas¹ com cada kit de garrafas de reposição original.</p>
+		<button class="btn-carrinho" onclick="adicionarAoCarrinho('produto6.png', 'Impressora Multifuncional Epson EcoTank L3250', 1099.99')">Adicionar ao Carrinho</button>
 	</div>
 
 	<script>
+		function zoomImage(element) {
+			var imagemDestaque = document.querySelector('.imagem-destaque');
+			var imagemDestaqueSrc = imagemDestaque.getAttribute('src');
+
+			imagemDestaque.setAttribute('src', element.getAttribute('src'));
+			element.setAttribute('src', imagemDestaqueSrc);
+		}
+
+		function changeImage(element) {
+			var imagemDestaque = document.querySelector('.imagem-destaque');
+			imagemDestaque.src = element.src;
+		}
+
 		function adicionarAoCarrinho(imagem, nome, preco) {
 			var produto = {
 				imagem: imagem,
